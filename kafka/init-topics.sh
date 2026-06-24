@@ -6,7 +6,7 @@ echo "Creating Kafka topics for FraudCore..."
 
 # Input stream (producer → spark)
 /opt/kafka/bin/kafka-topics.sh \
-  --bootstrap-server kafka-broker:9092 \
+  --bootstrap-server kafka-broker:29092 \
   --create \
   --if-not-exists \
   --topic transactions \
@@ -15,7 +15,7 @@ echo "Creating Kafka topics for FraudCore..."
 
 # Output stream (spark → sinks)
 /opt/kafka/bin/kafka-topics.sh \
-  --bootstrap-server kafka-broker:9092 \
+  --bootstrap-server kafka-broker:29092 \
   --create \
   --if-not-exists \
   --topic fraud-alerts \
@@ -25,5 +25,5 @@ echo "Creating Kafka topics for FraudCore..."
 echo "Topics created successfully."
 
 /opt/kafka/bin/kafka-topics.sh \
-  --bootstrap-server kafka-broker:9092 \
+  --bootstrap-server kafka-broker:29092 \
   --list
