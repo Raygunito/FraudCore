@@ -2,12 +2,12 @@ import random
 from faker import Faker
 
 # Probabilities per iteration with sum < 1.0
-P_HIGH_VALUE = 0.015
-P_RAPID_ACTIVITY = 0.006
-P_GEO_ANOMALY = 0.006
-P_REPEATED_HIGH = 0.005
-P_CRYPTO_RISK = 0.008
-P_VELOCITY_SPIKE = 0.005
+P_HIGH_VALUE = 0.0125
+P_RAPID_ACTIVITY = 0.01
+P_GEO_ANOMALY = 0.01
+P_REPEATED_HIGH = 0.01
+P_CRYPTO_RISK = 0.01
+P_VELOCITY_SPIKE = 0.01
 # remaining = legit traffic
 
 fake = Faker()
@@ -61,33 +61,32 @@ def rule6_velocity_spike(build, users):
 
 
 def generate_batch(build, users):
-    """Return a list of 1+ raw transaction dicts."""
+    """Return (list_of_txs, pattern_name) — pattern_name is for internal stats only."""
     r = random.random()
     acc = 0.0
 
     acc += P_HIGH_VALUE
     if r < acc:
-        return rule1_high_value(build, users)
+        return (rule1_high_value(build, users), "HIGH_VALUE")
 
     acc += P_RAPID_ACTIVITY
     if r < acc:
-        return rule2_rapid_activity(build, users)
+        return (rule2_rapid_activity(build, users), "RAPID_ACTIVITY")
 
     acc += P_GEO_ANOMALY
     if r < acc:
-        return rule3_geo_anomaly(build, users)
+        return (rule3_geo_anomaly(build, users), "GEO_ANOMALY")
 
     acc += P_REPEATED_HIGH
     if r < acc:
-        return rule4_repeated_high_value(build, users)
+        return (rule4_repeated_high_value(build, users), "REPEATED_HIGH")
 
     acc += P_CRYPTO_RISK
     if r < acc:
-        return rule5_crypto_risk(build, users)
+        return (rule5_crypto_risk(build, users), "CRYPTO_RISK")
 
     acc += P_VELOCITY_SPIKE
     if r < acc:
-        return rule6_velocity_spike(build, users)
+        return (rule6_velocity_spike(build, users), "VELOCITY_SPIKE")
 
-    # normal traffic
-    return [build()]
+    return ([build()], "legitimate")

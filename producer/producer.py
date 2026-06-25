@@ -55,7 +55,7 @@ def build_tx(**overrides):
     return {
         "user_id":       overrides.get("user_id", random.choice(USERS)),
         "transaction_id": f"t-{next(_tx_seq):07d}",
-        "amount":         overrides.get("amount", round(random.uniform(5, 5000), 2)),
+        "amount":         overrides.get("amount", round(random.uniform(5, 1000), 2)),
         "currency":       random.choice(CURRENCIES),
         "timestamp":      _now(),
         "location":       overrides.get("location", fake.city()),
@@ -68,15 +68,23 @@ def build_tx(**overrides):
 def run():
     log.info("Producer started → topic: transactions")
     sent = 0
+    legit = 0
+    fraud = 0
 
     try:
         while True:
-            for e in fraud_rules.generate_batch(build_tx, USERS):
+            batch, pattern = fraud_rules.generate_batch(build_tx, USERS)
+
+            for e in batch:
                 producer.send(TOPIC, key=e["user_id"], value=e)
                 sent += 1
+                if pattern == "legitimate":
+                    legit += 1
+                else:
+                    fraud += 1
 
-                if sent % 100 == 0:
-                    log.info("%s transactions sent", f"{sent:,}")
+            if sent % 100 == 0:
+                log.info("%s sent | %s legit | %s fraud", f"{sent:,}", legit, fraud)
 
             time.sleep(random.uniform(SLEEP_MIN, SLEEP_MAX))
 
@@ -85,7 +93,7 @@ def run():
     finally:
         producer.flush(timeout=10)
         producer.close(timeout=5)
-        log.info("FINAL → %s transactions sent", f"{sent:,}")
+        log.info("FINAL → %s sent | %s legit | %s fraud", f"{sent:,}", legit, fraud)
         log.info("Producer stopped")
 
 
