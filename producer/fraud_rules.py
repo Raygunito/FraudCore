@@ -61,7 +61,7 @@ def rule6_velocity_spike(build, users):
 
 
 def generate_batch(build, users):
-    """Return (list_of_txs, pattern_name) — pattern_name is for internal stats only."""
+    """Return (list_of_txs, pattern_name) - pattern_name is for internal stats only."""
     r = random.random()
     acc = 0.0
 

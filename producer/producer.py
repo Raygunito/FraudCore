@@ -66,7 +66,7 @@ def build_tx(**overrides):
 
 
 def run():
-    log.info("Producer started → topic: transactions")
+    log.info("Producer started => topic: transactions")
     sent = 0
     legit = 0
     fraud = 0
@@ -89,11 +89,11 @@ def run():
             time.sleep(random.uniform(SLEEP_MIN, SLEEP_MAX))
 
     except KeyboardInterrupt:
-        log.warning("Shutting down …")
+        log.warning("Shutting down ...")
     finally:
         producer.flush(timeout=10)
         producer.close(timeout=5)
-        log.info("FINAL → %s sent | %s legit | %s fraud", f"{sent:,}", legit, fraud)
+        log.info("FINAL => %s sent | %s legit | %s fraud", f"{sent:,}", legit, fraud)
         log.info("Producer stopped")
 
 
