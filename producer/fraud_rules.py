@@ -4,9 +4,9 @@ from faker import Faker
 # Probabilities per iteration with sum < 1.0
 P_HIGH_VALUE = 0.0125
 P_RAPID_ACTIVITY = 0.01
-P_GEO_ANOMALY = 0.01
-P_REPEATED_HIGH = 0.01
-P_CRYPTO_RISK = 0.01
+P_GEO_ANOMALY = 0.005
+P_REPEATED_HIGH = 0.02
+P_CRYPTO_RISK = 0.075
 P_VELOCITY_SPIKE = 0.01
 # remaining = legit traffic
 
