@@ -50,3 +50,14 @@ services:
       - ./data:/data
     working_dir: /app
     command: /opt/spark/bin/spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.13:4.0.3 main.py
+
+  dashboard:
+    build: ./dashboard
+    container_name: fraudcore-dashboard
+    depends_on: [ kafka-broker, kafka-init ]
+    ports:
+      - "8501:8501"
+    environment:
+      KAFKA_BOOTSTRAP: kafka-broker:29092
+    volumes:
+      - ./dashboard:/app
