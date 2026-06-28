@@ -25,6 +25,7 @@ USERS = [f"u{i}" for i in range(1000, 2000)]
 METHODS = ["credit_card", "debit_card", "paypal", "crypto"]
 CURRENCIES = ["EUR", "USD", "GBP"]
 
+
 SLEEP_MIN = 0.01
 SLEEP_MAX = 0.10
 
@@ -41,6 +42,9 @@ producer = KafkaProducer(
 fake = Faker()
 _tx_seq = count(1)
 
+# Each user has a "home" city, legitimate tx mostly stay there
+USER_HOME = {u: fake.city() for u in USERS}
+
 #  transaction builder
 
 
@@ -50,15 +54,23 @@ def _now():
     ).replace("+00:00", "Z")
 
 
+def _pick_location(user_id: str | None = None) -> str:
+    """85 % home city, 15 % random other city (legitimate travel)."""
+    if user_id and user_id in USER_HOME and random.random() < 0.85:
+        return USER_HOME[user_id]
+    return fake.city()
+
+
 def build_tx(**overrides):
     """Return a transaction dict.  Callers override fields by name."""
+    uid = overrides.get("user_id", random.choice(USERS))
     return {
-        "user_id":       overrides.get("user_id", random.choice(USERS)),
+        "user_id":       uid,
         "transaction_id": f"t-{next(_tx_seq):07d}",
-        "amount":         overrides.get("amount", round(random.uniform(5, 1000), 2)),
+        "amount":         overrides.get("amount", round(random.uniform(5, 650), 2)),
         "currency":       random.choice(CURRENCIES),
         "timestamp":      _now(),
-        "location":       overrides.get("location", fake.city()),
+        "location":       overrides.get("location", _pick_location(uid)),
         "method":         overrides.get("method", random.choice(METHODS)),
     }
 
@@ -84,7 +96,8 @@ def run():
                     fraud += 1
 
             if sent % 100 == 0:
-                log.info("%s sent | %s legit | %s fraud", f"{sent:,}", legit, fraud)
+                log.info("%s sent | %s legit | %s fraud",
+                         f"{sent:,}", legit, fraud)
 
             time.sleep(random.uniform(SLEEP_MIN, SLEEP_MAX))
 
@@ -93,7 +106,8 @@ def run():
     finally:
         producer.flush(timeout=10)
         producer.close(timeout=5)
-        log.info("FINAL => %s sent | %s legit | %s fraud", f"{sent:,}", legit, fraud)
+        log.info("FINAL => %s sent | %s legit | %s fraud",
+                 f"{sent:,}", legit, fraud)
         log.info("Producer stopped")
 
 
