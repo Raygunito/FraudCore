@@ -69,16 +69,7 @@ Updates every 2 seconds with KPIs, donut chart, histogram, and a live alert feed
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    P[Producer<br/>Python + Faker] -->|transactions| K[Kafka Broker]
-    K -->|transactions| S[Spark Structured Streaming<br/>PySpark]
-    S -->|fraud-alerts| K
-    S -->|Parquet| F[(/data/alerts/)]
-    S -->|Console| T[Terminal]
-    K -->|fraud-alerts| W[Dashboard Worker<br/>Python + kafka-python]
-    W -->|SQLite| D[Streamlit Dashboard<br/>:8501]
-```
+![Architecture of FraudCore](assets/architecture.png)
 
 ## Project Structure
 
