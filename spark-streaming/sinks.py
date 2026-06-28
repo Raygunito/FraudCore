@@ -45,7 +45,7 @@ def start_sinks(alerts: DataFrame, kafka_bootstrap: str) -> List[Tuple[str, Stre
         .option("kafka.bootstrap.servers", kafka_bootstrap)
         .option("topic", "fraud-alerts")
         .option("checkpointLocation", "/data/checkpoints/kafka/")
-        .trigger(processingTime="15 seconds")
+        .trigger(processingTime="5 seconds")
         .start()
     )
     queries.append(("kafka", q_kafka))
