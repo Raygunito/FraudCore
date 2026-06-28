@@ -20,7 +20,7 @@ data/parquet/
 metastore_db/
 spark-warehouse/
 *.log
-
+!assets/*.log
 # OS
 .DS_Store
 Thumbs.db

@@ -1,0 +1,15 @@
+Waiting for Kafka...
+
+Kafka is ready.
+
+Created topic transactions.
+
+Created topic fraud-alerts.
+
+Topics created.
+
+__consumer_offsets
+
+fraud-alerts
+
+transactions

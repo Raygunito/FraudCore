@@ -1,0 +1,44 @@
+INFO 19:51:45  Attempting bootstrap to bootstrap-0 at localhost:9092 (rack None)
+INFO 19:51:45  Initializing connection for node_id bootstrap-0 at localhost:9092 (rack=None)
+INFO 19:51:45  <KafkaTCPTransport [::1:9092<-49718]>: connected to <socket.socket fd=1008, family=23, type=1, proto=0, laddr=('::1', 49718, 0, 0), raddr=('::1', 9092, 0, 0)>
+INFO 19:51:45  <KafkaConnection node_id=bootstrap-0 host=[::1:9092<-49718] broker_version=unknown (initializing)>: Broker version identified as 4.3
+INFO 19:51:45  <KafkaConnection node_id=bootstrap-0 host=[::1:9092<-49718] broker_version=(4, 3) (connected)>: Connected
+INFO 19:51:45  Updated metadata: ClusterMetadata(brokers: 1, topics: 0, coordinators: 0)
+INFO 19:51:45  Bootstrap complete: ClusterMetadata(brokers: 1, topics: 0, coordinators: 0)
+INFO 19:51:45  Closing bootstrap connection bootstrap-0
+INFO 19:51:45  <KafkaTCPTransport [::1:9092<-49718]>: Closing transport
+INFO 19:51:45  <KafkaConnection node_id=bootstrap-0 broker_version=(4, 3) (disconnected)>: Connection closed
+INFO 19:51:45  Starting metadata refresh loop
+WARNING 19:51:45  <KafkaProducer client_id=kafka-python-producer-1 transactional_id=None>: Idempotence will be disabled because user-provided config conflicts with idempotent defaults: acks=1
+INFO 19:51:45  Producer started => topic: transactions
+INFO 19:51:45  Initializing connection for node_id 1 at localhost:9092 (rack=None)
+INFO 19:51:45  <KafkaTCPTransport [::1:9092<-49719]>: connected to <socket.socket fd=440, family=23, type=1, proto=0, laddr=('::1', 49719, 0, 0), raddr=('::1', 9092, 0, 0)>
+INFO 19:51:45  <KafkaConnection node_id=1 host=[::1:9092<-49719] broker_version=(4, 3) (connected)>: Connected
+INFO 19:51:45  Updated metadata: ClusterMetadata(brokers: 1, topics: 1, coordinators: 0)
+INFO 19:51:51  100 sent | 87 legit | 13 fraud
+INFO 19:52:00  300 sent | 237 legit | 63 fraud
+INFO 19:52:05  400 sent | 312 legit | 88 fraud
+INFO 19:52:10  500 sent | 405 legit | 95 fraud
+INFO 19:52:14  600 sent | 476 legit | 124 fraud
+INFO 19:52:19  700 sent | 556 legit | 144 fraud
+INFO 19:52:29  900 sent | 732 legit | 168 fraud
+INFO 19:52:42  1,200 sent | 950 legit | 250 fraud
+INFO 19:52:47  1,300 sent | 1019 legit | 281 fraud
+INFO 19:52:53  1,400 sent | 1109 legit | 291 fraud
+INFO 19:52:57  1,500 sent | 1184 legit | 316 fraud
+INFO 19:53:02  1,600 sent | 1262 legit | 338 fraud
+INFO 19:53:08  1,700 sent | 1355 legit | 345 fraud
+INFO 19:53:17  1,900 sent | 1516 legit | 384 fraud
+INFO 19:53:22  2,000 sent | 1597 legit | 403 fraud
+INFO 19:53:26  2,100 sent | 1666 legit | 434 fraud
+INFO 19:53:31  2,200 sent | 1750 legit | 450 fraud
+INFO 19:53:35  2,300 sent | 1818 legit | 482 fraud
+INFO 19:53:40  2,400 sent | 1899 legit | 501 fraud
+INFO 19:53:49  2,600 sent | 2050 legit | 550 fraud
+WARNING 19:53:50  Shutting down ...
+INFO 19:53:50  <KafkaProducer client_id=kafka-python-producer-1 transactional_id=None>: Closing the Kafka producer with 5 secs timeout.
+INFO 19:53:50  <KafkaTCPTransport [::1:9092<-49719]>: Closing transport
+INFO 19:53:50  <KafkaConnection node_id=1 broker_version=(4, 3) (disconnected)>: Connection closed
+INFO 19:53:50  Stopping metadata refresh loop
+INFO 19:53:50  FINAL => 2,621 sent | 2063 legit | 558 fraud
+INFO 19:53:50  Producer stopped
